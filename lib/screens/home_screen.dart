@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_wscube/constant/color_constant.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,6 +20,17 @@ class _HomeScreenState extends State<HomeScreen> {
     'Cricket',
     'Football',
   ];
+  List<String> arrImage = [
+    "https://images.unsplash.com/photo-1485115905815-74a5c9fda2f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1436&q=80",
+    "https://images.unsplash.com/reserve/LJIZlzHgQ7WPSh5KVTCB_Typewriter.jpg?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1392&q=80",
+    "https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    "https://images.unsplash.com/photo-1612798287863-a4ae5259b680?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80",
+    "https://images.unsplash.com/photo-1613416721666-920abc2f4436?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
+    "https://images.unsplash.com/photo-1516534775068-ba3e7458af70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80",
+  ];
+  final CarouselController carouselController = CarouselController();
+  int _current = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,11 +140,64 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-
+          SizedBox(
+            height: 20,
+          ),
           //Carousal image,
-          Container(),
+          Container(
+            child: CarouselSlider.builder(
+                carouselController: carouselController,
+                itemCount: arrImage.length,
+                itemBuilder: (context, index, realIndex) {
+                  return Container(
+                    padding: EdgeInsets.all(5),
+                    width: MediaQuery.of(context).size.width,
+                    height: 280,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Image.network(
+                        arrImage[index],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                },
+                options: CarouselOptions(
+                    scrollPhysics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    autoPlay: true,
+                    enlargeCenterPage: true,
+                    aspectRatio: 1.5,
+                    viewportFraction: 0.8,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        _current = index;
+                      });
+                    })),
+          ),
           //Page Indicator
-          Container(),
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: arrImage.asMap().entries.map((entry) {
+                return GestureDetector(
+                  // onTap: () => carouselController.animateToPage(entry.key),
+                  child: Container(
+                    width: _current == entry.key ? 12 : 7.0,
+                    height: _current == entry.key ? 12 : 7.0,
+                    margin:
+                        EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                    decoration: BoxDecoration(
+                        border: _current == entry.key ? Border.all() : null,
+                        shape: BoxShape.circle,
+                        color: _current == entry.key
+                            ? Colors.white
+                            : Colors.black.withOpacity(0.7)),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
           //Recommendation sell all
           Row(
             children: [],
