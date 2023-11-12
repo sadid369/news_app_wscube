@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:news_app_wscube/screens/home_screen.dart';
-import 'package:news_app_wscube/screens/splash_screen.dart';
+import 'package:news_app_wscube/screens/mobile%20screens/home_screen.dart';
+import 'package:news_app_wscube/screens/mobile%20screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
