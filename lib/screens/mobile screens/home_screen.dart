@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_wscube/constant/color_constant.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:news_app_wscube/screens/mobile%20screens/navigation_page.dart';
+import 'package:news_app_wscube/screens/mobile%20screens/news_page.dart';
+import 'package:news_app_wscube/screens/mobile%20screens/save_page.dart';
+import 'package:news_app_wscube/screens/mobile%20screens/setting_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -10,6 +14,55 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int pageIndex = 0;
+  List<Widget> scrrenList = [
+    MyHome(),
+    SavePage(),
+    NavigationPage(),
+    SettingPage()
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: ColorConstant.myGrayLight,
+      body: scrrenList[pageIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (value) {
+          pageIndex = value;
+          setState(() {});
+        },
+        currentIndex: pageIndex,
+        showSelectedLabels: false,
+        // selectedIconTheme: IconThemeData(color: ColorConstant.myOrange),
+        selectedItemColor: ColorConstant.myOrange,
+        // fixedColor: ColorConstant.myGray,
+        unselectedItemColor: ColorConstant.myGray,
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+              ),
+              label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.save), label: 'Save'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.assistant_navigation), label: 'Navigation'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings), label: 'Settings'),
+        ],
+      ),
+    );
+  }
+}
+
+class MyHome extends StatefulWidget {
+  const MyHome({super.key});
+
+  @override
+  State<MyHome> createState() => _MyHomeState();
+}
+
+class _MyHomeState extends State<MyHome> {
   List<String> arrCategory = [
     'All',
     'Political',
@@ -33,94 +86,100 @@ class _HomeScreenState extends State<HomeScreen> {
   int _current = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorConstant.myGrayLight,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 70,
-            ),
-            //header
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              width: MediaQuery.of(context).size.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Icon(
-                    Icons.apps_sharp,
-                    size: 35,
-                  ),
-                  Container(
-                    child: Row(
-                      children: const [
-                        Icon(
-                          Icons.location_on,
-                          color: ColorConstant.myRed,
-                          size: 20,
-                        ),
-                        Text('Rembang, Ind')
-                      ],
-                    ),
-                  ),
-                  const Icon(
-                    Icons.notifications_none_rounded,
-                    size: 35,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            //TextField for Search
-            Container(
-              height: 60,
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: TextField(
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.search),
-                  hintText: 'Find Interesting news',
-                  hintStyle: const TextStyle(color: ColorConstant.myGray),
-                  suffixIcon: Container(
-                    alignment: Alignment.center,
-                    width: 90,
-                    height: 60,
-                    padding: EdgeInsets.all(15),
-                    margin: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        color: ColorConstant.myOrange,
-                        borderRadius: BorderRadius.circular(25)),
-                    child: const Text(
-                      'Search',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                    ),
-                  ),
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(35)),
-                  filled: true,
-                  fillColor: Colors.white,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 70,
+          ),
+          //header
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            width: MediaQuery.of(context).size.width,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Icon(
+                  Icons.apps_sharp,
+                  size: 35,
                 ),
+                Container(
+                  child: Row(
+                    children: const [
+                      Icon(
+                        Icons.location_on,
+                        color: ColorConstant.myRed,
+                        size: 20,
+                      ),
+                      Text('Rembang, Ind')
+                    ],
+                  ),
+                ),
+                const Icon(
+                  Icons.notifications_none_rounded,
+                  size: 35,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          //TextField for Search
+          Container(
+            height: 60,
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: TextField(
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.search),
+                hintText: 'Find Interesting news',
+                hintStyle: const TextStyle(color: ColorConstant.myGray),
+                suffixIcon: Container(
+                  alignment: Alignment.center,
+                  width: 90,
+                  height: 60,
+                  padding: EdgeInsets.all(15),
+                  margin: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                      color: ColorConstant.myOrange,
+                      borderRadius: BorderRadius.circular(25)),
+                  child: const Text(
+                    'Search',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+                border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(35)),
+                filled: true,
+                fillColor: Colors.white,
               ),
             ),
-            SizedBox(
-              height: 15,
-            ),
-            //News Category
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          //News Category
 
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              width: MediaQuery.of(context).size.width,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: arrCategory
-                      .map((e) => Container(
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            width: MediaQuery.of(context).size.width,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: arrCategory
+                    .map((e) => InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) {
+                                return NewsPage(title: e);
+                              },
+                            ));
+                          },
+                          child: Container(
                             padding: EdgeInsets.all(10),
                             margin: EdgeInsets.only(right: 20),
                             decoration: BoxDecoration(
@@ -136,179 +195,161 @@ class _HomeScreenState extends State<HomeScreen> {
                                     : ColorConstant.myGray,
                               ),
                             ),
-                          ))
-                      .toList(),
-                ),
+                          ),
+                        ))
+                    .toList(),
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
-            //Carousal image,
-            Container(
-              child: CarouselSlider.builder(
-                  carouselController: carouselController,
-                  itemCount: arrImage.length,
-                  itemBuilder: (context, index, realIndex) {
-                    return Container(
-                      padding: EdgeInsets.all(5),
-                      width: MediaQuery.of(context).size.width,
-                      height: 280,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Image.network(
-                          arrImage[index],
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    );
-                  },
-                  options: CarouselOptions(
-                      scrollPhysics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      autoPlay: true,
-                      enlargeCenterPage: true,
-                      aspectRatio: 1.5,
-                      viewportFraction: 0.8,
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          _current = index;
-                        });
-                      })),
-            ),
-            //Page Indicator
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: arrImage.asMap().entries.map((entry) {
-                  return GestureDetector(
-                    // onTap: () => carouselController.animateToPage(entry.key),
-                    child: Container(
-                      width: _current == entry.key ? 12 : 7.0,
-                      height: _current == entry.key ? 12 : 7.0,
-                      margin:
-                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                      decoration: BoxDecoration(
-                          border: _current == entry.key ? Border.all() : null,
-                          shape: BoxShape.circle,
-                          color: _current == entry.key
-                              ? Colors.white
-                              : Colors.black.withOpacity(0.7)),
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            //Recommendation sell all
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    'Recommendation',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'See All',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            // New List
-            Container(
-              // color: Colors.blue,
-              height: 200,
-              width: double.infinity,
-              padding: EdgeInsets.all(8),
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          //Carousal image,
+          Container(
+            child: CarouselSlider.builder(
+                carouselController: carouselController,
                 itemCount: arrImage.length,
-                itemBuilder: (context, index) {
+                itemBuilder: (context, index, realIndex) {
                   return Container(
-                    margin: EdgeInsets.all(5),
-                    // width: double.infinity,
-                    // height: 200,
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 100,
-                          height: 100,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.network(
-                              arrImage[index],
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.6,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Political News'),
-                                  Icon(Icons.more_horiz)
-                                ],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              FittedBox(
-                                fit: BoxFit.fitWidth,
-                                child: Text(
-                                  'Employees at a company in Ameria start',
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
+                    padding: EdgeInsets.all(5),
+                    width: MediaQuery.of(context).size.width,
+                    height: 280,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Image.network(
+                        arrImage[index],
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   );
                 },
-              ),
-            )
-          ],
-        ),
-      ),
-      bottomNavigationBar: NavigationBar(
-        surfaceTintColor: ColorConstant.myOrange,
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-        backgroundColor: Colors.white,
-        destinations: [
-          NavigationDestination(
-              icon: Icon(
-                Icons.home,
-                color: ColorConstant.myGray,
-              ),
-              label: 'Home'),
-          NavigationDestination(icon: Icon(Icons.save), label: 'Save'),
-          NavigationDestination(
-              icon: Icon(Icons.assistant_navigation), label: 'Navigation'),
-          NavigationDestination(icon: Icon(Icons.settings), label: 'Settings'),
+                options: CarouselOptions(
+                    scrollPhysics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    autoPlay: true,
+                    enlargeCenterPage: true,
+                    aspectRatio: 1.5,
+                    viewportFraction: 0.8,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        _current = index;
+                      });
+                    })),
+          ),
+          //Page Indicator
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: arrImage.asMap().entries.map((entry) {
+                return GestureDetector(
+                  // onTap: () => carouselController.animateToPage(entry.key),
+                  child: Container(
+                    width: _current == entry.key ? 12 : 7.0,
+                    height: _current == entry.key ? 12 : 7.0,
+                    margin:
+                        EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                    decoration: BoxDecoration(
+                        border: _current == entry.key ? Border.all() : null,
+                        shape: BoxShape.circle,
+                        color: _current == entry.key
+                            ? Colors.white
+                            : Colors.black.withOpacity(0.7)),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          //Recommendation sell all
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Text(
+                  'Recommendation',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'See All',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          // New List
+          Container(
+            // color: Colors.blue,
+            height: 200,
+            width: double.infinity,
+            padding: EdgeInsets.all(8),
+            child: ListView.builder(
+              padding: EdgeInsets.zero,
+              itemCount: arrImage.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: EdgeInsets.all(5),
+                  // width: double.infinity,
+                  // height: 200,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 100,
+                        height: 100,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            arrImage[index],
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Political News'),
+                                Icon(Icons.more_horiz)
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            FittedBox(
+                              fit: BoxFit.fitWidth,
+                              child: Text(
+                                'Employees at a company in Ameria start',
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          )
         ],
       ),
     );
