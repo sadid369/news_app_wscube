@@ -21,9 +21,12 @@ class _WebHomePageState extends State<WebHomePage> {
   ];
   @override
   Widget build(BuildContext context) {
+    double space = MediaQuery.of(context).size.width * 0.02;
+    double mWidth = MediaQuery.of(context).size.width;
+    double mHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
-        margin: EdgeInsets.all(30),
+        margin: EdgeInsets.all(space),
         child: Column(
           children: [
             //header
@@ -31,7 +34,7 @@ class _WebHomePageState extends State<WebHomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.3,
+                  width: mWidth * 0.3,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -52,7 +55,7 @@ class _WebHomePageState extends State<WebHomePage> {
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.15,
+                  width: mWidth * 0.15,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -87,7 +90,7 @@ class _WebHomePageState extends State<WebHomePage> {
               ),
             ),
             SizedBox(
-              height: 5,
+              height: mHeight * 0.02,
             ),
             //News Category Row
             Row(
@@ -108,11 +111,12 @@ class _WebHomePageState extends State<WebHomePage> {
                         ))
                     .toList()),
             SizedBox(
-              height: 10,
+              height: space,
             ),
             //main Contain
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: Column(
@@ -120,7 +124,7 @@ class _WebHomePageState extends State<WebHomePage> {
                     children: [
                       SizedBox(
                           width: double.infinity,
-                          height: 150,
+                          height: mHeight * 0.255,
                           child: Image.network(
                             'https://plus.unsplash.com/premium_photo-1674375039817-cb0a39ad2f98?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aWNlJTIwbW91bnRhaW58ZW58MHx8MHx8fDA%3D',
                             fit: BoxFit.cover,
@@ -199,7 +203,7 @@ class _WebHomePageState extends State<WebHomePage> {
                   ),
                 ),
                 SizedBox(
-                  width: 20,
+                  width: space,
                 ),
                 Expanded(
                     flex: 2,
@@ -207,7 +211,7 @@ class _WebHomePageState extends State<WebHomePage> {
                       children: [
                         SizedBox(
                             width: double.infinity,
-                            height: 190,
+                            height: 300,
                             child: Image.network(
                               'https://plus.unsplash.com/premium_photo-1674375039817-cb0a39ad2f98?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aWNlJTIwbW91bnRhaW58ZW58MHx8MHx8fDA%3D',
                               fit: BoxFit.cover,
@@ -222,70 +226,17 @@ class _WebHomePageState extends State<WebHomePage> {
                             style: GoogleFonts.poppins(fontSize: 24),
                           ),
                         ),
-                        Text(
-                          'fficia eiusmod quis esse id est aliquip. Cillum eiusmod proident aute anim tempor deserunt tempor amet mollit nostrud. Id eiusmod Lorem officia est occaecat aliquip nisi.',
-                          style: GoogleFonts.poppins(fontSize: 8),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: 40,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                    'https://images.unsplash.com/photo-1587778082149-bd5b1bf5d3fa?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MXw5NDUyNDk0fHxlbnwwfHx8fHw%3D',
-                                  ),
-                                ),
-                                color: Colors.blue,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Wode Warren',
-                                  style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 10,
-                                  ),
-                                ),
-                                Text(
-                                  'Newsman',
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 7,
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                        Divider(),
-                        Text(
-                          'Photography',
-                          style: GoogleFonts.poppins(
-                            fontSize: 15,
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.1,
+                          child: Text(
+                            'Dolor adipisicing qui qui elit ea nulla exercitation anim. Occaecat irure reprehenderit proident aute sunt id aliquip ad occaecat cupidatat est. Id aliquip cupidatat in nulla incididunt do magna et cupidatat pariatur occaecat. Exercitation fugiat et fugiat anim laboris. Reprehenderit ad laboris mollit consectetur non cillum culpa incididunt enim duis. Tempor est dolor culpa sit officia ex.fficia eiusmod quis esse id est aliquip. Cillum eiusmod proident aute anim tempor deserunt tempor amet mollit nostrud. Id eiusmod Lorem officia est occaecat aliquip nisi.',
+                            style: GoogleFonts.poppins(fontSize: 12),
                           ),
                         ),
-                        Text(
-                          ' est esse. Irure enim sit qui quis nulla. Magna ad aliqua irure nulla mollit ex ex deserunt aliqua tempor pariatur sit excepteur proident. In nulla deserunt esse nostrud. Laboris sit exercitation incididunt aute ex duis elit aliquip laboris nulla aliqua est reprehenderit aliqua.',
-                          style: GoogleFonts.poppins(
-                            fontSize: 10,
-                          ),
-                        )
                       ],
                     )),
                 SizedBox(
-                  width: 20,
+                  width: space,
                 ),
                 Expanded(
                     child: Column(
